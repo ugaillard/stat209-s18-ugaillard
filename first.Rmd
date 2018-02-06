@@ -4,7 +4,9 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(message = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
 library(dplyr)
 library(readr)
 library(ggplot2)
@@ -15,15 +17,16 @@ library(ggplot2)
 
 The fav_restaurants dataset involves a csv file containing names of the students, along with their favorite restaurants, the location of said restaurants, and the average prices for each meal. The data set also contains the last time visited in the form "YYYY-MM".
 
-The below code loads the csv file:
 ```{r }
-fav_restaurants <- read_csv("C:\\Users\\ug5fw\\Desktop\\fav_restaurants.csv")
+fav_restaurants <- read_csv("https://raw.githubusercontent.com/URstats/stat209-s18-ugaillard/master/fav_restaurants.csv")
 ```
 
 
 ## Plotting the Data
 
 This plot represents the a bar graph of all submissions based on type of cuisine. The x axis is the type of cuisine while the y axis is the amount of each type.
+
+
 ```{r}
 ggplot(fav_restaurants, aes(cuisine)) + geom_bar()
 ```
