@@ -1,0 +1,92 @@
+---
+title: "Lab 10: Filtering Data"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
+knitr::opts_chunk$set(message = FALSE)
+knitr::opts_chunk$set(fig.height = 5)
+knitr::opts_chunk$set(fig.width = 8.5)
+knitr::opts_chunk$set(out.width = "100%")
+knitr::opts_chunk$set(dpi = 300)
+
+library(readr)
+library(ggplot2)
+library(dplyr)
+library(viridis)
+library(forcats)
+theme_set(theme_minimal())
+```
+
+## Pick a dataset
+Swear words given in the movies of Quentin Tarantino:
+
+```{r}
+tarantino <- read_csv("https://statsmaths.github.io/stat_data/tarantino.csv")
+```
+
+## Instructions
+
+This lab is similar to the last. You'll pick a dataset and then generate an
+analysis of that data using data visualizations. The difference here is that
+instead of a single plot, I would like you to construct 3-4 plots that
+together tell a linear story. Each plot should be separated by a sentence or
+two describing what the viewer should take away from the plot. Try to keep the
+plots similar in some way; perhaps each simply highlights a different subset
+of the data but has the same underlying layers.
+
+Notice that each of the datasets for today are larger than you will probably
+be able to use. You will need to filter the data to a particular team, year,
+subset of curse words. You may further filter the data to highlight an even
+smaller subset of the data within each plot.
+
+## Analysis
+
+This plot shows all of Tarantino's movies in the dataset, orderded by the total amount of curse words used during the movie.
+
+``` {r}
+ggplot(tarantino, aes(fct_infreq(factor(movie)))) +
+  geom_bar() +
+  coord_flip() +
+  xlab("Movie") +
+  ggtitle("Tarantino movies ordered by total amount of curse words used in the movie")
+
+```
+
+
+Taking a look at one of the most famous curse words, "fuck", this plot shows the same movies as in the previous plot, but this time ordered by how many times any variation of the word fuck is used.
+``` {r}
+fuck_variations <- filter(tarantino, word %in% c("fuck", "fucking", "fucker", "motherfucker", "motherfucking", "motherfuckers"))
+
+ggplot(fuck_variations, aes(fct_infreq(factor(movie)))) +
+  geom_bar() +
+  coord_flip() +
+  xlab("Movie") +
+  ggtitle("Tarantino movies ordered by the amount of times a variation of the word 'fuck' is used")
+```
+
+
+This last plot looks at the movie Pulp fiction, and shows how much a particular curse word was used throughout the movie. Notice that some words are barely used while others persist throughout the whole movie.
+``` {r}
+pulp_fiction <- filter(tarantino, movie == "Pulp Fiction")
+
+ggplot(pulp_fiction, aes(word, minutes_in)) +
+  geom_line(color = "black", size = 3, alpha = 1) + 
+  coord_flip() +
+  geom_line(size = 3) +
+  ggtitle("Appearance of curse words throughout the movie Pulp Fiction")
+
+```
+
+
+
+
+
+
+
+
+
+
+
