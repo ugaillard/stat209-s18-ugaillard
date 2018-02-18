@@ -1,0 +1,76 @@
+number,age,major,fav_movie_book,genre_movie_book,amount_movie_book,gender
+1,18,Business Administration,Deadpool,Comedy,10+,Male
+2,22,STEM,Harry Potter series,Science Fiction,10+,Female
+3,19,Social Sciences,Dirty Dancing,Drama,10+,Female
+4,20,Art,Slaughterhouse 5,Science Fiction,10+,Male
+5,18,STEM,Her,Science Fiction,10+,Male
+6,20,STEM,A Girl in Translation,Drama,6-10,Female
+7,18,Business Administration,Requiem For a Dream,Drama,6-10,Male
+8,19,Business Administration,Mad Max: Fury Road,Action,10+,Male
+9,20,STEM,Memoirs of a Geisha,Science Fiction,10+,Female
+10,18,Business Administration,Forrest Gump,Drama,10+,Male
+11,18,STEM,Interstellar,Science Fiction,6-10,Male
+12,22,STEM,Good or God?,Drama,2-5,Female
+13,19,Business Administration,Zen and the Art of Motorcycle Maintenance,Drama,10+,Male
+14,21,Other,Things Fall Apart,Science Fiction,10+,Female
+15,25,Social Sciences,Space Jam,Comedy,2-5,Male
+16,18,STEM,Good Will Hunting,Drama,10+,Male
+17,21,Social Sciences,The Cat Returns ,Animated,10+,Female
+18,20,Business Administration,The perks of being a wallflower,Drama,6-10,Female
+19,21,STEM,The Dark Knight,Horror,10+,Male
+20,18,Business Administration,Sicario,Action,10+,Male
+21,20,STEM,Animal Farm ,Comedy,10+,Female
+22,23,Business Administration,Mulan,Animated,2-5,Female
+23,20,Business Administration,Breakfast at Tiffany's,Science Fiction,6-10,Female
+24,22,STEM,Hidden Figures,Drama,2-5,Female
+25,18,STEM,Tuesdays with Morrie,Drama,10+,Female
+26,24,STEM,A Walk to Remember,Drama,6-10,Female
+27,21,Business Administration,Tangled,Animated,2-5,Female
+28,40,STEM,Star Wars,Science Fiction,10+,Male
+29,21,STEM,Saving private Ryan ,Action ,2-5,Male
+30,19,Art,The Little Prince (movie & book),Animated,10+,Female
+31,18,STEM,Django Unchained,Action,2-5,Male
+32,22,STEM,Catching Fire,Science Fiction,6-10,Male
+33,17,Social Sciences,The Kite Runner,Science Fiction,10+,Female
+34,30,Business Administration,Dune,Science Fiction,10+,Male
+35,23,Business Administration,Bridget Jones,Comedy,10+,Female
+36,20,STEM,The Outsiders,Science Fiction,10+,Female
+37,22,Art,Return of the King (movie),Science Fiction,10+,Male
+38,33,Art,Star wars OT,Science Fiction,10+,Male
+39,17,STEM,Ant Man,Action,10+,Male
+40,21,Art,12 Angry Men,Drama,10+,Male
+41,19,Other,Under the Skin,Horror,10+,Female
+42,26,Art,Casablanca/A Game of Thrones ,Drama,10+,Male
+43,19,STEM,Ladybird,Comedy,6-10,Female
+44,43,STEM,The Selfish Gene,Science Fiction,10+,Male
+45,26,STEM,Star Wars (all),Science Fiction,10+,Male
+46,20,STEM,Princess Bride,Drama,10+,Female
+47,19,STEM,Percy Jackson,Science Fiction,10+,Female
+48,20,Business Administration,Short Term 12,Drama,10+,Female
+49,31,Social Sciences,The Prophet Khalil Gibran,Drama,10+,Female
+50,23,STEM,Clue,Comedy,10+,Female
+51,18,STEM,Oldboy,Horror,10+,Female
+52,20,STEM,Spider-Man: Homecoming,Action/Adventure,10+,Agender
+53,35,STEM,Terminator 2: Judgment Day,Science fiction,10+,Female
+54,17,STEM,The Shape of Water,Drama,10+,Trans Male
+55,27,STEM,Lolita by Nabokov,Comedy,10+,Male
+56,18,STEM,Star Wars,Action,6-10,Female
+57,23,STEM,Scott Pilgrim Vs. the World / The Hitchhikers' Guide to the Galaxy,Comedy,10+,Male
+58,20,Social Sciences,Good Omens,Horror,6-10,Female
+59,20,STEM,Juno,Comedy,10+,Female
+60,21,STEM,Movie: 10 Things I Hate About You / Book: Fire by Kristin Cashore,Drama,10+,Female
+61,30,STEM,Harry Potter,Fantasy,10+,Female
+62,18,Other,Saving Private Ryan,Action,10+,Male
+63,25,Other,Harry Potter series ,Fantasy ,10+,Male
+64,29,Art,Kafka On The Shore - Haruki Murakami ,Fiction,10+,Female
+65,34,STEM,The Shining - movie and boook,Horror,10+,Nonbinary
+66,36,Art,"movie: blues brothers, book: wind up bird chronicles",Comedy,10+,Male
+67,19,STEM,Psycho ,Horror,10+,Female
+68,28,STEM,The Name of the Wind,Science fiction,10+,Female
+69,22,STEM,Pulp Fiction,Action,10+,Female
+70,23,Business Administration,It,Horror,10+,Male
+71,18,STEM,Lord of the Rings Saga,Science fiction,10+,Male
+72,19,STEM,Terminator,Action,10+,Male
+73,21,STEM,Get out,Horror,10+,Female
+74,20,STEM,REC,Horror,10+,Female
+75,25,Business Administration,The Notebook,Drama,6-10,Female
