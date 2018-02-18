@@ -1,0 +1,82 @@
+---
+title: "Comparing college major to movie or book preferences"
+author: "Ulrick Gaillard"
+output:
+html_document:
+df_print: paged
+---
+
+```{r setup, include=FALSE, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(readr)
+library(ggplot2)
+library(plotly)
+library(viridis)
+library(dplyr)
+```
+
+# Comparing college major to movie or book preference
+
+## Overview
+
+As the title suggests, the goal of this study was to collect people's data on their preferences and movie major. The participants were given a google forms document in which they filled out their age, gender, favorite movie or book, the genre of their favorite movie or book, and how many movies or books have they read/watched in 2017. This research asks the question of whether there could exist a correlation between what people enjoy watching or reading and their fields of study. Preliminar observations lead to believe this is no correlation between the two, however, looking at our data our questions may be answered.
+
+## Data dictionary
+
+Here is a data dictionary for the 'responses' dataset:
+
+- **number**: numerical value representing each person who took the survey. Each subsequent submission increased the number counter by one.
+- **age**: numerical value representing the age of the participant. Allowed ages were 17+ since at least college students were needed.
+- **major**: categorical value representing the college major that mostly represents the participant. Included options were "STEM", "Arts", "Business Administration", and "Social Sciences"
+- **fav_movie_book**: character value that represents the person's favorite movie or book, or both. 
+- **genre_movie_book**: character value that represents the genre of the person's favorite movie or book
+- **amount_movie_book**: categorical value that represents how many books and movies the person watched/read in 2017. Possible options were 0-1, 2-5, 6-10, 10+
+- **gender**: categorical/character value that represents the persons gender. Possible values were Female, Male, or if they associate with another gender, they could write it in the 'other' section of the question.
+
+
+#### Responses Dataset
+```{r echo=FALSE}
+submissions <- read_csv("https://raw.githubusercontent.com/URstats/stat209-s18-ugaillard/master/submissions.csv")
+submissions
+```
+
+## Exploratory Analysis
+
+Our goal for this project is ultimately, to compare college major to movie preferences in terms of genre, and evaluate whether there exists a correlation between the two. In order to achieve this goal, we divided our goal into three graphs to convey clarity for the viewers, and ourselves. This first below graph shows the relationship between gender of the participants and their major (if applicable). Right away we can see that due to the incredibly low amount of submissions, its more convenient to only focus on Males and Females rather than other with only one submission. Focusing on males and females, females seem to be overall more invested into STEM and social sciences while men are more into Business administration and other Art related majors such as English, Art, History, etc. However, in order to achieve better results, it is best advised to calculate the ratios for males and females for each major category.
+
+```{r, echo=FALSE}
+ggplot(submissions, aes(gender, fill = major)) +
+  geom_bar(position = "stack") +
+  geom_bar() +
+  coord_flip() 
+```
+
+
+
+
+This second graph below further compares three variables: Major, amount of books and movies the person read, and age. The purpose of this plot is to relate the amount of books and movies the person read to their age and major. From the data presented, we can see that in all cases where a major group has people who only read 6-10 movies or books last year, they all are in the age ranges between 17 and 25. What we could take away from this data is that often times young people don't have as much time as older adults to watch movies and read books, or they are more involved in other activities not related to reading or watching a movie. Older folks, on the other hand, might have a little more free time and thus, can enjoy a good book or movie by themselves or with their peers. In all cases, all major groups have the majority of participants reading and/or watching movies or books more than 10 times in the last year. This could be due to the nature of movies -- due to their usual shortness (~1h 30m) it makes it easier to watch a movie in any given day without losing too much time.
+
+```{r, echo=FALSE}
+ggplot(submissions, aes(age, amount_movie_book)) +
+  geom_point(aes(color = gender), size = 3) +
+    facet_wrap(~ major) +
+  ggtitle("   ") +
+  xlab("age") +
+  ylab("Amount of books/movies read or watched") 
+```
+
+
+
+This third and final graph below relates the gender of the participants to the genre of the book or movie they have watched in the previous year. The level of intensity of blue represents how many people from the mentioned genders have seen a movie or read a book in the mentioned categories. The darker the blue, the less people have watched or read that genre -- the lighter the blue, the more people have watched or read that specific genre. We can tell from this graph that in the case of males and females, females tend to watch or read more dramatic titles (according to the light blue color), while men tend to enjoy science fiction and action more. It is important to note that to the low amount of submissions, chances were that not all genres were covered fully in order to give a better analysis, such as what happened here.
+
+```{r, echo=FALSE}
+STEM <- filter(submissions, major == "STEM") 
+ggplot(STEM, aes(gender)) +
+  geom_bin2d(aes(y = genre_movie_book))
+```
+
+
+
+## Conclusion
+
+Ultimately, from the previous three graphs, we can conclude that most people, regarless of major, are able to watch a great amount of movies or read a lot of books in one year. As well, older adults can have more free time once that they have found a stable job, and thus are able to spend more of their time reading or watching a movie. This leads to a majority of them reading or watching 10+ movies and/or books in the last year. Lastly, Females are more diverse in terms of genres of movies watched of books read, while men tend to stick to either action, science fiction, or comedy for the most part (only in this study). Other variables that I would like to study to further this research would be instead to separate movies and books, and add location of where they are from (USA only), as well preferences of family members(parents, siblings, children) to notice any similarities or differences.
