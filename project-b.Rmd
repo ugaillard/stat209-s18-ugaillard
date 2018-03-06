@@ -1,0 +1,88 @@
+---
+title: "A quantitative analysis of income, race and quality of life in Flint, Michigan"
+author: "Ulrick Gaillard"
+output:
+html_document:
+df_print: paged
+---
+
+```{r setup, include=FALSE, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(message = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
+knitr::opts_chunk$set(fig.height = 5)
+knitr::opts_chunk$set(fig.width = 8.5)
+knitr::opts_chunk$set(out.width = "100%")
+knitr::opts_chunk$set(dpi = 300)
+
+library(readr)
+library(ggplot2)
+library(dplyr)
+library(ggmap)
+library(viridis)
+library(smodels)
+library(gridExtra)
+```
+
+```{r}
+tracts <- read_csv("https://raw.githubusercontent.com/statsmaths/stat_data/gh-pages/acs_tract_data_2016.csv.gz")
+flint_mi <- filter(tracts, cbsa == "Flint, MI")
+flint_mi$poverty_line <- flint_mi$income_000_010 + flint_mi$income_010_015 + flint_mi$income_015_020 + flint_mi$income_020_025
+flint_mi$use_public_transport <- flint_mi$commute_public + flint_mi$commute_bike + flint_mi$commute_walk + flint_mi$commute_athome
+flint_mi$fifty_percent_of_rent <- flint_mi$rent_by_income_00_10 + flint_mi$rent_by_income_10_15 + flint_mi$rent_by_income_15_20 + flint_mi$rent_by_income_20_25 + flint_mi$rent_by_income_25_30 + flint_mi$rent_by_income_30_35 + flint_mi$rent_by_income_35_40 + flint_mi$rent_by_income_40_50
+flint_mi$non_white <- flint_mi$race_black + flint_mi$race_ntvam + flint_mi$race_asian + flint_mi$race_pacif + flint_mi$race_other + flint_mi$race_multi
+```
+
+### Introduction
+This project takes a look at a particular city in Michigan -- Flint. Flint has been in the news for the last 4-5 years due to growing concerns of unsafe water for its inhabitants. This constant exposure to the city made me interested in researching more about its population and how wealth is distributed amongst its people. Previous news articles on the city had led me to believe that citizens living in Flint are mostly living in poor conditions. My hypothesis for this research is that because of the worsened living conditions due to contaminated water, as well as low wages, a great number of people would live under the poverty line. Ultimately, the greatest factor determining the bad quality of life should be affording medical expenses, it is a no brainer that affording medical care in the United States is close to impossible unless a person has a good insurance. In the case of Flint, if people keep getting poisoned because of the water, then they have to pay extra for medical services, and that decreases a family's net worth.
+
+### Exploratory Data Analysis
+In order to analyze povertly levels, we me must first remove any assumptions of which areas have a higher concentration of people living under the poverty line. Generating a map of all of the counties of Flint, unexpectedly, we can see that there seems to be a concentration of people living under the poverty line towards the center of the map. Possible reasons for this are that further out into the state, there are more rural areas which may not offer more services for its people and so, they tend to gravitate towards places with more opportunities. Comparing this first map to the same map but with a distribution of race, most counties with predominantly people of color also coincide with the counties in which most people are living on the poverty line. Why does this happen? There are a lot of unknown factors involved, but we can only guess that development of black families in these counties originated as a result of government adversiting to build a larger work force for the city. It could also be that lower wages essentially 'trap' these communities in an endless cycle of ever-increasing bills that can't be paid due to not having enough money and consequently, these families cannot move to other states where there can be better opportunities. 
+
+```{r}
+p1 <- qmplot(lon, lat, data = flint_mi, geom = "blank") + 
+        geom_point(aes(color = poverty_line), alpha = 0.8) + 
+        scale_color_viridis()
+
+p2 <- qmplot(lon, lat, data = flint_mi, geom = "blank") + 
+        geom_point(aes(color = non_white), alpha = 0.8) + 
+        scale_color_viridis()
+
+grid.arrange(p1, p2, nrow = 1, top = "Maps of Flint, Michigan comparing percent of people of color and people living on poverty line per county")
+
+```
+
+Keeping in mind the previous point made about people of color living in poorer counties, we should now determine whether rent is the the factor severely affecting these communities. Creating a plot comparing median rent and percent of people living under poverty line, we can see that most counties in which more people of color live have lower rent than those in which less people are under the poverty line. Based on this data, we could assume that while rent is still a worrying factor for many families, it might not the leading cause of their poverty. However, since most people of color wwill be living under the poverty line, then they cannot make the ends meet for their monthly rent. 
+
+```{r}
+ggplot(flint_mi, aes(poverty_line, median_rent)) +
+  geom_point(aes(color = non_white), alpha = 0.8) +
+  scale_color_viridis() +
+  ylab("Median Rent") +
+  xlab("Percent of those under the poverty line") +
+  ggtitle("Plot of median rent and people living under the poverty line with regards to percent of people of color living in the county")
+
+
+```
+
+Since, as we mentioned before, these people can't afford rent, then this means they have to resort to living a more frugal lifestyle in order to survive. This means less shopping, less leisure activities, and increased use of public transportation. Plotting a graph representing those who spend at least 50 percent of their income towards rent and those who only use public transportation to commute to work, results are not what we intended: 
+```{r}
+ggplot(flint_mi, aes(rent_by_income_50_99, use_public_transport)) +
+  geom_point(aes(color = non_white)) +
+  scale_color_viridis() +
+  coord_flip() +
+  xlab("People who use atleast half of their income for rent") +
+  ylab("People who only use public transport to commute") +
+  ggtitle("Plot comparing counties in which their people use atleast 50 percent of their income to pay rent and those who only use public transportation")
+
+
+```
+The graph shows quite the opposite of what we are expecting. Most people in general do not use public transportation at all to move around the city. Cars themselves are a massive expense to buy and maintain, even the ones on the cheaper ends. So why are people not resorting to using public transportation more often? There could several reasons involved. First, their infraestructure for public transportation may not be as developed as places such as New York or Boston, and therefore people are forced to buy a car in order to move around. As well, there hass been an increase of people who work for companies such as Uber or Lyft, which also require cars. Furthermore, places may be so far appart from each other that walking will not be convient and cars will have to be used. 
+
+### Conclusion
+Ultimately, people living in Flint Michigan are at an unfortunate spot. With a combination of semi-expensive rent, low wages, and a bad quality of life due to environmental factors, these counties in which people are under the poverty line are stuck in an endless loop of debt, disease, and regret. From what we can initially tell, the two main concerning factors are rent and medical expenses. Further collection of data should account for percent of income spent towards paying medical bills, or what percent of a county has people who receive medical insurance from their job. Looking at these types of data may further help us determine how exactly can Flint, Michigan receive help in order to prosper.
+
+
+### References
+The lovely dataset by Dr. Arnold.
+
