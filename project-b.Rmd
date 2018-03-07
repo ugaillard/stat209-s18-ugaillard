@@ -29,8 +29,8 @@ tracts <- read_csv("https://raw.githubusercontent.com/statsmaths/stat_data/gh-pa
 flint_mi <- filter(tracts, cbsa == "Flint, MI")
 flint_mi$poverty_line <- flint_mi$income_000_010 + flint_mi$income_010_015 + flint_mi$income_015_020 + flint_mi$income_020_025
 flint_mi$use_public_transport <- flint_mi$commute_public + flint_mi$commute_bike + flint_mi$commute_walk + flint_mi$commute_athome
-flint_mi$fifty_percent_of_rent <- flint_mi$rent_by_income_00_10 + flint_mi$rent_by_income_10_15 + flint_mi$rent_by_income_15_20 + flint_mi$rent_by_income_20_25 + flint_mi$rent_by_income_25_30 + flint_mi$rent_by_income_30_35 + flint_mi$rent_by_income_35_40 + flint_mi$rent_by_income_40_50
 flint_mi$non_white <- flint_mi$race_black + flint_mi$race_ntvam + flint_mi$race_asian + flint_mi$race_pacif + flint_mi$race_other + flint_mi$race_multi
+flint_mi$born_diff_state <- flint_mi$born_other_midwest + flint_mi$born_other_ne + flint_mi$born_other_south + flint_mi$born_other_south + flint_mi$born_other_west
 ```
 
 ### Introduction
@@ -42,13 +42,15 @@ In order to analyze povertly levels, we me must first remove any assumptions of 
 ```{r}
 p1 <- qmplot(lon, lat, data = flint_mi, geom = "blank") + 
         geom_point(aes(color = poverty_line), alpha = 0.8) + 
-        scale_color_viridis()
+        scale_color_viridis() +
+        labs(color = "% Poverty Line")
 
 p2 <- qmplot(lon, lat, data = flint_mi, geom = "blank") + 
         geom_point(aes(color = non_white), alpha = 0.8) + 
-        scale_color_viridis()
+        scale_color_viridis() +
+        labs(color = "% Non-white people")
 
-grid.arrange(p1, p2, nrow = 1, top = "Maps of Flint, Michigan comparing percent of people of color and people living on poverty line per county")
+grid.arrange(p1, p2, nrow = 1, top = "Representation of poverty and race per county")
 
 ```
 
@@ -56,33 +58,30 @@ Keeping in mind the previous point made about people of color living in poorer c
 
 ```{r}
 ggplot(flint_mi, aes(poverty_line, median_rent)) +
-  geom_point(aes(color = non_white), alpha = 0.8) +
+  geom_point(aes(color = non_white), size = 2) +
   scale_color_viridis() +
-  ylab("Median Rent") +
+  ylab("Median Rent (in dollars)") +
   xlab("Percent of those under the poverty line") +
-  ggtitle("Plot of median rent and people living under the poverty line with regards to percent of people of color living in the county")
-
-
+  ggtitle("Median rent and people living under the poverty line") +
+  labs(color = "% Non-white people")
 ```
 
-Since, as we mentioned before, these people can't afford rent, then this means they have to resort to living a more frugal lifestyle in order to survive. This means less shopping, less leisure activities, and increased use of public transportation. Plotting a graph representing those who spend at least 50 percent of their income towards rent and those who only use public transportation to commute to work, results are not what we intended: 
+Since, as we mentioned before, these people can't afford rent, then this means they have to resort to living a more frugal lifestyle in order to survive. This means less shopping, less leisure activities, and increased use of public transportation. Plotting a graph representing those who spend at least 50 percent of their income towards rent and those who only use public transportation to commute to work, results are not necessarily what we intended: 
 ```{r}
 ggplot(flint_mi, aes(rent_by_income_50_99, use_public_transport)) +
-  geom_point(aes(color = non_white)) +
-  scale_color_viridis() +
+  geom_point(aes(color = non_white, size = born_diff_state)) +
   coord_flip() +
-  xlab("People who use atleast half of their income for rent") +
-  ylab("People who only use public transport to commute") +
-  ggtitle("Plot comparing counties in which their people use atleast 50 percent of their income to pay rent and those who only use public transportation")
-
-
+  scale_color_viridis() +
+  xlab("Percent who use atleast half of their income for rent") +
+  ylab("Percent who only use public transport to commute") +
+  labs(color = "% Non-white people") +
+  labs(size = "% People born in another state")
 ```
-The graph shows quite the opposite of what we are expecting. Most people in general do not use public transportation at all to move around the city. Cars themselves are a massive expense to buy and maintain, even the ones on the cheaper ends. So why are people not resorting to using public transportation more often? There could several reasons involved. First, their infraestructure for public transportation may not be as developed as places such as New York or Boston, and therefore people are forced to buy a car in order to move around. As well, there hass been an increase of people who work for companies such as Uber or Lyft, which also require cars. Furthermore, places may be so far appart from each other that walking will not be convient and cars will have to be used. 
+The graph shows quite the opposite of what we are expecting in two aspects. Results showed that most people in general do not use public transportation at all to move around the city. Cars themselves are a massive expense to buy and maintain, even the ones on the cheaper ends. So why are people not resorting to using public transportation more often? There could several reasons involved. First, their infraestructure for public transportation may not be as developed as places such as New York or Boston, and therefore people are forced to buy a car in order to move around. As well, there has been an increase of people who work for companies such as Uber or Lyft, which also require cars. Furthermore, places may be so far appart from each other that walking will not be convient and cars will have to be used. Another aspect that raises questions is the fact that in the counties where there are more people of color, they most of them are born in another state. This hints that there must be some aspect that is attracting these families towards flint. However, one plausible reason might be that most of the people in Flint, Michigan might be old, and so they might have moved during another time period where business was flourishing. One interesting aspect could be creating plots based on the amount of young people currently living in the counties, and compare it to the amount of old people in order to see if birthrates have plateaued on recent years. 
 
 ### Conclusion
-Ultimately, people living in Flint Michigan are at an unfortunate spot. With a combination of semi-expensive rent, low wages, and a bad quality of life due to environmental factors, these counties in which people are under the poverty line are stuck in an endless loop of debt, disease, and regret. From what we can initially tell, the two main concerning factors are rent and medical expenses. Further collection of data should account for percent of income spent towards paying medical bills, or what percent of a county has people who receive medical insurance from their job. Looking at these types of data may further help us determine how exactly can Flint, Michigan receive help in order to prosper.
+Ultimately, people living in Flint Michigan are at an unfortunate spot. With a combination of semi-expensive rent, low wages, and a bad quality of life due to environmental factors, these counties in which people are under the poverty line are stuck in an endless loop of debt, disease, and regret. From what we can initially tell, the two main concerning factors are rent and medical expenses. The apparent lack of diversity are you move outward poses some further research questions. Why are mostly white people living in these areas? How is quality of life? Are they hard to reach to in terms of transportation? It is also worth mentioning that there is an increased concentration of older people in counties where most people of color are concentrated. This leads to believe that birthrates are declining due to these previously mentioned concerns by Flint's citizens. Further collection of data should account for percent of income spent towards paying medical bills, or what percent of a county has people who receive medical insurance from their job. Looking at these types of data may further help us determine how exactly can Flint, Michigan receive help in order to prosper.
 
 
 ### References
 The lovely dataset by Dr. Arnold.
-
