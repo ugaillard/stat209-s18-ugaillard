@@ -1,0 +1,99 @@
+name,school_type,median_gpa,median_mcat
+Albany Medical College,Private,3.68,511
+Albert Einstein College of Medicine,Private,3.82,515
+Baylor College of Medicine,Private,3.92,518
+Boston University School of Medicine,Private,3.83,518
+Brody School of Medicine at East Carolina University,Public,3.73,508
+California Northstate University College of Medicine,Private,3.64,513
+Case Western Reserve University School of Medicine,Private,3.82,518
+Central Michigan University College of Medicine,Public,3.74,506
+Charles E. Schmidt College of Medicine at Florida Atlantic University,Public,3.73,512
+Chicago Medical School at Rosalind Franklin University of Medicine & Science,Private,3.62,509
+Columbia University Vagelos College of Physicians and Surgeons,Private,3.87,519
+Cooper Medical School of Rowan University,Public,3.7,508
+Creighton University School of Medicine,Private,3.82,510
+Donald and Barbara Zucker School of Medicine at Hofstra/NorthWell,Private,3.78,516
+Drexel University College of Medicine,Private,3.76,511
+Duke University School of Medicine,Private,3.88,519
+East Tennessee State University James H. Quillen College of Medicine,Public,3.81,508
+Easter Virginia Medical School,Public,3.67,513
+Emory University School of Medicine,Private,3.79,515
+Florida International University Herbert Wetheim College of Medicine,Public,3.75,512
+Florida State University College of Medicine,Public,3.76,506
+Frank H. Netter MD School of Medicine at Quinnipiac University,Private,3.66,512
+Geisel School of Medicine at Dartmouth,Private,3.74,515
+Geisinger Commonwealth School of Medicine,Private,3.66,511
+George Washington University School of Medicine and Health Sciences,Private,3.72,511
+Georgetown University School of Medicine,Private,3.8,513
+Harvard Medical School,Private,3.92,519
+Howard University College of Medicine,Private,3.45,502
+Icahn School of Medicine at Mount Sinai,Private,3.87,519
+Indiana University School of Medicine,Public,3.82,511
+Jacobs School of Medicine and Biomedical Science at the University of Buffalo,Public,3.8,512
+Johns Hopkins University School of Medicine,Private,3.94,520
+Keck School of Medicine of the University of Southern California,Private,3.78,517
+Lewis Katz School of Medicine at Temple University,Private,3.75,512
+Loma Linda University School of Medicine,Private,3.83,518
+Louisiana State University School of Medicine in New Orleans,Public,3.81,509
+Louisiana State University School of Medicine in Shreveport,Public,3.8,504
+Loyola University Chicago Stritch School of Medicien,Private,3.72,510
+Marshall University Joan C. Edwards School of Medicine,Public,3.73,503
+Mayo Clinic School of Medicine,Private,3.91,517
+McGovern Medical School at the University of Texas Health Science Center at Houston,Public,3.84,513
+Medical College of Georgia at Augusta University,Public,3.81,511
+Medical College of Wisconsin,Private,3.79,511
+Medical University of South Carolina College of Medicine,Public,3.79,510
+Meharry Medical College,Private,3.58,502
+Mercer University School of Medicine,Private,3.71,505
+Michigan State University College of Human Medicine,Public,3.68,507
+Morehouse School of Medicine,Private,3.61,504
+New York Medical College,Private,3.63,511
+New York University School of Medicine,Private,3.92,521
+Northeast Ohio Medical University,Public,3.76,506
+Northwestern University The Feinberg School of Medicine,Private,3.91,520
+Oakland University Willian Beaumont School of Medicine,Public,3.8,510
+Ohio State University College of Medicine,Public,3.85,516
+Oregon Health & Science University Schol of Medicine,Public,3.76,511
+Pennsylvania State University College of Medicine,Private,3.82,510
+Perelman School of Medicine at the University of Pennsylvania,Private,3.88,520
+Ponce Health Sciences University School of Medicine,Private,3.63,499
+"Robert Larner, M.D., College of Medicine at the University of Vermont",Public,3.74,511
+Rush Medical College of rush University Medical Center,Private,3.68,511
+Rutgers New Jersey Medical School,Public,3.74,514
+"Rutgers, Robert Wood Johnson Medical School",Public,3.68,513
+Saint Louis University School of Medicine,Private,3.89,513
+San Juan Bautista School of Medicine,Private,3.63,497
+Sidney Kimmer Medical College at Thomas Jefferson University,Private,3.74,514
+Southern Illinois University School of Medicine,Public,3.72,506
+Stanford University School of Medicine,Private,3.86,519
+State University of New York Downstate Medical Center College of Medicine,Public,3.76,514
+State University of New York Upstate Medical University,Public,3.73,513
+Stony Brook University School of Medicine,Public,3.82,514
+Texas A&M Health Science Center College of Medicine,Public,3.8,512
+Texas Tech University Health Sciences Center Paul L. Foster School of Medicine,Public,3.82,509
+Texas Tech University Health Sciences Center School of Medicine,Public,3.81,510
+The University of Toledo College of Medicine,Public,3.73,509
+The Warren Alpert Medical School of Brown University,Private,3.79,515
+Tufts University School of Medicine,Private,3.73,514
+Tulane University School of Medicine,Private,3.64,511
+Uninformed Services University of the Health Sciences F. Edward Hebert School of Medicine,Public,3.7,510
+Universidad Central del Caribe School of Medicine,Private,3.72,497
+University of Arizona College of Medicine,Public,3.72,508
+University of Arizona College of Medicine - Phoenix,Public,3.82,510
+University of Arkansas for Medical Science College of Medicine,Public,3.81,507
+"University of California, Davis, School of Medicine",Public,3.72,512
+"University of California, Irvine, School of Medicine",Public,3.82,515
+"University of California, Los Angeles David Geffen School of Medicine",Public,3.85,517
+"University of California, Riverside School of Medicine",Public,3.68,509
+"University of California, San Diego School of Medicine",Public,3.8,517
+"University of California, San Francisco, School of Medicine",Public,3.85,517
+University of Central Florida College of Medicine,Public,3.84,512
+University of Chicago Division of the Biological Sciences the Pritzker School of Medicine,Private,3.91,520
+University of Cincinnati College of Medicine,Public,3.84,517
+University of Colorado School of Medicine,Public,3.76,512
+University of Connecticut School of Medicine,Public,3.77,513
+University of Florida College of Medicine,Public,3.85,514
+"University of Hawaii, John A. Burns School of Medicine",Public,3.82,513
+University of Illinois College of Medicine,Public,3.73,512
+University of Iowa Roy J. and Lucille A. Carver College of Medicine,Public,3.83,514
+University of Kansas School of Medicine,Public,3.85,509
