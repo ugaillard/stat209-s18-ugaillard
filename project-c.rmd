@@ -29,14 +29,14 @@ In order to generate the dataset, information was gathered from the Medical Scho
 ```{r}
 medschool <- read_csv("https://raw.githubusercontent.com/URstats/stat209-s18-ugaillard/master/medschool.csv")
 ```
-###Regression model of median GPA as a function of school type:
 
+###Regression model of median GPA as a function of school type:
 ```{r}
 med_gpa_model <- lm_basic(median_gpa ~ 1 + school_type, data = medschool)
 reg_table(med_gpa_model, level = 0.95)
 ```
 
-The First regression table shows the predicted average median gpa as a function of the type of school (public or private). Using a 95% confidence interval, the estimated intercept baseline is ~3.76 and has a range from 3.741998 to 3.792. The slope shows to be 0.008469, with a range from -0.026219 to 0.043. Using the formula y = mx + b, we can determine how much does a school being public affect median GPA.
+The First regression table shows the predicted average median gpa as a function of the type of school (public or private). Using a 95% confidence interval, the estimated intercept baseline is ~3.76 and has a range from 3.741998 to 3.792. The slope shows to be 0.008469, with a range from -0.026219 to 0.043. Using the formula y = mx + b, we can determine how much does a school being public affect median GPA. The R-squared value for the model is 0.002441.
 
 ```{r}
 ggplot(medschool, aes(school_type, median_gpa)) +
@@ -51,7 +51,7 @@ med_mcat_model <- lm_basic(median_mcat ~ 1 + school_type, data = medschool)
 reg_table(med_mcat_model, level = 0.95)
 ```
 
-Second regression table showing the predicted average median gpa as a function of the type of school (public or private). Using a 95% confidence interval, the estimated intercept is baseline ~512.809 and has a range from 511.380 to 514.237. The slope shows to be -1.848, with a range from -3.828 to 0.133. Using the formula y = mx+ b, we can determine how much does a school being public affect median MCAT.
+Second regression table showing the predicted average median gpa as a function of the type of school (public or private). Using a 95% confidence interval, the estimated intercept is baseline ~512.809 and has a range from 511.380 to 514.237. The slope shows to be -1.848, with a range from -3.828 to 0.133. Using the formula y = mx+ b, we can determine how much does a school being public affect median MCAT. The R-squared value for the model is 0.0345.
 
 ```{r}
 ggplot(medschool, aes(median_mcat)) +
@@ -73,11 +73,11 @@ The graph shows a positive correlation between median MCAT and median GPA for an
 
 ## Conclusions
 
-The first model showed a positive relationship between school type (public, in this case) and median GPA. This could be able to say that going to a public school could postively affect one's chances of obtaining a higher GPA than a private school. However, the slope is too small, which means that the impact of school type on GPA is negligible. Furthermore, the interval for the slope contains zero, therefore it is not statistically significant at a 95% confidence level. This goes on to disprove the hypothesis that median GPA changes drastically by school type. 
+The first model showed a positive relationship between school type (public, in this case) and median GPA. This could be able to say that going to a public school could postively affect one's chances of obtaining a higher GPA than a private school. However, the slope is too small and the R-squared value is really close to 0, which means that the impact of school type on GPA is negligible and the data points do not fit the trendline. Furthermore, the interval for the slope contains zero, therefore it is not statistically significant at a 95% confidence level. This goes on to disprove the hypothesis that median GPA changes drastically by school type. 
 
-Moreover, the second model showed a negative relationship between school type and median MCAT. This tells us that students who attend public schools would end up doing worse on the MCAT than their private school peers. However, once again, the interval for the slope contains 0, making it not statistically significant at a 95% confidence level. This also disproves the fact that median MCAT is influenced by the type of school a person chooses to attend.
+Moreover, the second model showed a negative relationship between school type and median MCAT. This tells us that students who attend public schools would end up doing worse on the MCAT than their private school peers. However, once again, the interval for the slope contains 0 and the R-squared value of the model is close to 0, making it not statistically significant at a 95% confidence level and showing that the data points would not be close to the trendline. This also disproves the fact that median MCAT is influenced by the type of school a person chooses to attend.
 
-Lastly, taking a look at the linear regression plot of median MCAT and GPA, there seems to be a positive correlation between the two. However, there is a lot of deviation away from the main line, hinting at the fact that there are a lot of schools where the median MCAT and median GPA are too far away from each other, in terms of percentiles. Ultimately, the hypothesis that median MCAT and GPA are correlated is true to an extent, and medical school admissions is more than just a numbers game.
+Lastly, taking a look at the linear regression plot of median MCAT and GPA, there seems to be a positive correlation between the two. However, there is a lot of deviation away from the main line, hinting at the fact that there are a lot of schools where the median MCAT and median GPA are too far away from each other, in terms of percentiles. Ultimately, the hypothesis that median MCAT and GPA are correlated is only true to an extent, and medical school admissions is more than just a numbers game.
 
 ## References
 
