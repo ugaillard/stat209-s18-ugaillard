@@ -1,0 +1,91 @@
+---
+title: "Melanoma investigations in Florida"
+author: "Ulrick Gaillard"
+output: html_document
+---
+
+```{r setup, include=FALSE, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(message = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
+knitr::opts_chunk$set(out.width = "100%")
+knitr::opts_chunk$set(dpi = 300)
+
+library(readr)
+library(ggplot2)
+library(dplyr)
+library(ggmap)
+library(viridis)
+library(smodels)
+library(gridExtra)
+```
+
+```{r, include=FALSE}
+cancer <- read_csv("https://statsmaths.github.io/stat_data/cancer_inc_data.csv")
+melanoma_fl <- filter(cancer, state == "fl")
+```
+
+## Introduction
+
+Cancer research has been a focal point for medicine for the last few decades. Many debate whether a cure for cancer exists or not, but with every passing year, better advancements in medicine could make a cure a possibility. According to the National Cancer Institute, about 40% of men and women will be diagnosed with cancer at some point in their lives. Granted that some types are more frequent than others, this is a matter that needs our total attention. The focus of this study is Melanoma, a type of skin cancer, and how different racial groups and different counties in Virginia are prone to being diagnosed with Melanoma. 
+
+The thesis consists of three parts:
+1) Rates for Melanoma in counties that have a beach are similar compared to other counties that have beaches in them, but different to counties that do not.
+2) Counties that have a lower latitude would have higher rates of Melanoma than counties that are in higher latitudes.
+3) Per race, Melanoma will occur more in White and Asian populations rather than black, due to the latter race having increased Melanin levels which help against UV radiation.
+
+Through data analysis and evalutations, this research will hope to address the previous three claims, and possibly support them.
+
+## Exploratory Analysis 
+
+```{r}
+black <- ggplot(melanoma_fl, aes(melanoma, black_alone)) +
+  geom_point() +
+  scale_color_viridis() + 
+  geom_smooth(method = "lm") +
+  ylab("Percentage that identifies as black") +
+  xlab("Melanoma rate")
+
+white <- ggplot(melanoma_fl, aes(melanoma, white_alone)) +
+  geom_point() +
+  scale_color_viridis() + 
+  geom_smooth(method = "lm") +
+  ylab("Percentage that identifies as white") +
+  xlab("Melanoma rate")
+
+asian <- ggplot(melanoma_fl, aes(melanoma, asian_alone)) +
+  geom_point() +
+  scale_color_viridis() + 
+  geom_smooth(method = "lm") +
+  ylab("Percentage that identifies as asian") +
+  xlab("Melanoma rate")
+
+grid.arrange(black, asian, white, nrow = 1, top = "Rate of melanoma incidents in Florida counties by race")
+```
+
+From the first grpah we can see that counties where a higher number of people identify as black do not have a higher melanoma rate. The opposite trend occurs for counties in which the majority of people identify as white, where melanomma rates increase as the percentage increases. For asian populations though, there is some positive correlation, even though it is very small. This goes on to show prove part of our thesis; White people and Asian people would have a higher tendency to suffer from melanoma. Since melanin works by absorbing UV light, it would make sense that people who have more melanin would be able to absorb more UV light, and thus, be better protected. One interesting aspect to look at is the trendline for Asian populations. It is barely positive, meaning that there is not much correlation between Melanoma rates and percentage of counties in which people identify as Asian.
+
+Why would this be? For one, while Tanning helps by increasing melanin concentrations which in turn increase protection against UV radiation, too much exposure to tanning beds or the sun may also increase the chances of developing skin cancer. A study done in Yale came to the conclusion that melatonin could also be a reason for skin cancer. This happens because UV radiation can still act on the body hours after exposure, and therefore can affect melatonin cells. It could be that asian populations do not have much exposure to the sun, and therefore have lesser rates for melanomas. It could also be that asian populations could have better skin care habits that directly affect their chances of developing the disease. It is worth noting that while there is almost no correlation between the two variables for asian populations, most of the counties are not close to the fitted line -- due to low asian populations in florida as a whole.
+
+
+```{r, include=FALSE}
+model <- lm_basic(melanoma ~ 1 + white_alone + asian_alone + black_alone, data = melanoma_fl)
+reg_table(model, level = 0.95)
+```
+
+
+```{r}
+
+
+
+```
+
+
+## Conclusion
+
+
+
+## References
+
+
+
