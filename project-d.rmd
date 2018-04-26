@@ -1,5 +1,5 @@
 ---
-title: "Melanoma investigations in Florida"
+title: "Melanoma investigations"
 author: "Ulrick Gaillard"
 output: html_document
 ---
@@ -8,7 +8,7 @@ output: html_document
 knitr::opts_chunk$set(echo = FALSE)
 knitr::opts_chunk$set(message = FALSE)
 knitr::opts_chunk$set(warning = FALSE)
-knitr::opts_chunk$set(out.width = "100%")
+knitr::opts_chunk$set(out.width = "450%")
 knitr::opts_chunk$set(dpi = 300)
 
 library(readr)
@@ -20,72 +20,76 @@ library(smodels)
 library(gridExtra)
 ```
 
-```{r, include=FALSE}
+```{r}
 cancer <- read_csv("https://statsmaths.github.io/stat_data/cancer_inc_data.csv")
-melanoma_fl <- filter(cancer, state == "fl")
 ```
 
 ## Introduction
 
-Cancer research has been a focal point for medicine for the last few decades. Many debate whether a cure for cancer exists or not, but with every passing year, better advancements in medicine could make a cure a possibility. According to the National Cancer Institute, about 40% of men and women will be diagnosed with cancer at some point in their lives. Granted that some types are more frequent than others, this is a matter that needs our total attention. The focus of this study is Melanoma, a type of skin cancer, and how different racial groups and different counties in Virginia are prone to being diagnosed with Melanoma. 
-
-The thesis consists of three parts:
-1) Rates for Melanoma in counties that have a beach are similar compared to other counties that have beaches in them, but different to counties that do not.
-2) Counties that have a lower latitude would have higher rates of Melanoma than counties that are in higher latitudes.
-3) Per race, Melanoma will occur more in White and Asian populations rather than black, due to the latter race having increased Melanin levels which help against UV radiation.
-
-Through data analysis and evalutations, this research will hope to address the previous three claims, and possibly support them.
+Cancer research has been a focal point for medicine for the last few decades. Many debate whether a cure for cancer exists or not, but with every passing year, better advancements in medicine could make a cure a possibility. According to the National Cancer Institute, about 40% of men and women will be diagnosed with cancer at some point in their lives. Granted that some types are more frequent than others, this is a matter that needs our total attention. The focus of this study is Melanoma, a type of skin cancer, and how people who identify as white are prone to being diagnosed with Melanoma. The thesis focuses on how rates for Melanoma in white populations for states that have a beach are similar compared to other states that have beaches in them, but different to states that do not. Through data analysis and evaluations, this research will hope to address the previous claim, and possibly support it.
 
 ## Exploratory Analysis 
+Since the goal of this thesis reseach is to evaluate whether melanoma rates are affected by states that contain a beach, two states were selected that contained any number of beaches in them: California and Florida. State with high number of counties were selected in order to get a more accurate representation of the data. Afterwards, two states that did not contain beaches: Tennessee and Iowa. Once again, these states contain a high number of counties in order to have better representation of the data. The state's datasets themselves were filtered from the overarching dataset 'cancer', and then group summmarized by the white_alone variable in order to get mean values for melanoma incidents and income for any counties with peoplpe who identify as white. Plotting the melanoma rate mean and income mean for each county from each previously mentioned state yields the following resutls:
 
 ```{r}
-black <- ggplot(melanoma_fl, aes(melanoma, black_alone)) +
-  geom_point() +
-  scale_color_viridis() + 
-  geom_smooth(method = "lm") +
-  ylab("Percentage that identifies as black") +
-  xlab("Melanoma rate")
+california <- filter(cancer, state == "ca")
+florida <- filter(cancer, state == "fl")
+tennessee <- filter(cancer, state == "tn")
+iowa <- filter(cancer, state == "ia")
 
-white <- ggplot(melanoma_fl, aes(melanoma, white_alone)) +
-  geom_point() +
-  scale_color_viridis() + 
-  geom_smooth(method = "lm") +
-  ylab("Percentage that identifies as white") +
-  xlab("Melanoma rate")
+ca_whites <- group_summarize(california, white_alone)
+ca_whites_melanoma <- mean(ca_whites[["melanoma_mean"]])
 
-asian <- ggplot(melanoma_fl, aes(melanoma, asian_alone)) +
-  geom_point() +
-  scale_color_viridis() + 
-  geom_smooth(method = "lm") +
-  ylab("Percentage that identifies as asian") +
-  xlab("Melanoma rate")
+fl_whites <- group_summarize(florida, white_alone)
+fl_whites_melanoma <- mean(fl_whites[["melanoma_mean"]])
 
-grid.arrange(black, asian, white, nrow = 1, top = "Rate of melanoma incidents in Florida counties by race")
+tn_whites <- group_summarize(tennessee, white_alone)
+tn_whites_melanoma <- mean(tn_whites[["melanoma_mean"]])
+
+ia_whites <- group_summarize(iowa, white_alone)
+ia_whites_melanoma <- mean(ia_whites[["melanoma_mean"]])
+
+ca <- qplot(melanoma_mean, income_mean , data = ca_whites) + 
+  geom_smooth(method = "lm") +
+  ggtitle("Income vs. Melanoma rate in CA")
+
+fl <- qplot(melanoma_mean, income_mean , data = fl_whites) + 
+  geom_smooth(method = "lm") +
+  ggtitle("Income vs. Melanoma rate in FL")
+
+tn <- qplot(melanoma_mean, income_mean , data = tn_whites) + 
+  geom_smooth(method = "lm") +
+  ggtitle("Income vs. Melanoma rate in TN")
+
+ia <- qplot(melanoma_mean, income_mean , data = ia_whites) + 
+  geom_smooth(method = "lm") +
+  ggtitle("Income vs. Melanoma rate in IA")
+
+grid.arrange(ca, fl, ia, tn, nrow = 2)
 ```
 
-From the first grpah we can see that counties where a higher number of people identify as black do not have a higher melanoma rate. The opposite trend occurs for counties in which the majority of people identify as white, where melanomma rates increase as the percentage increases. For asian populations though, there is some positive correlation, even though it is very small. This goes on to show prove part of our thesis; White people and Asian people would have a higher tendency to suffer from melanoma. Since melanin works by absorbing UV light, it would make sense that people who have more melanin would be able to absorb more UV light, and thus, be better protected. One interesting aspect to look at is the trendline for Asian populations. It is barely positive, meaning that there is not much correlation between Melanoma rates and percentage of counties in which people identify as Asian.
+The results right away show us two things -- first, there exists a positive correlation between income and melanoma rates for states that contain beaches (top row). This data supports our thesis that for white populations, states that have beaches have higher rates for melanoma. This is mostly due to the availability of beaches and how people are more likely to spend more time outside for that same reason. As well, these states are not as cold and therefore during winters, residents wouldn't have to be indoors as much and would be exposed to the sun more. Furthermore, increased income would give more availability for skin-care products such as sunscreen, which greatly protects against UV light.  
 
-Why would this be? For one, while Tanning helps by increasing melanin concentrations which in turn increase protection against UV radiation, too much exposure to tanning beds or the sun may also increase the chances of developing skin cancer. A study done in Yale came to the conclusion that melatonin could also be a reason for skin cancer. This happens because UV radiation can still act on the body hours after exposure, and therefore can affect melatonin cells. It could be that asian populations do not have much exposure to the sun, and therefore have lesser rates for melanomas. It could also be that asian populations could have better skin care habits that directly affect their chances of developing the disease. It is worth noting that while there is almost no correlation between the two variables for asian populations, most of the counties are not close to the fitted line -- due to low asian populations in florida as a whole.
+Secondly, for states that do not contain beaches (bottom row), the slope of the fitted line for Iowa is very close to 0, but positive, while the fitted line for Tennessee is slightly negative. This means that there is some slight correlation between the two factors, but it is not as pronounced.  The graphs also show that most counties are close to the lower rates for melanoma incidents, while the beached states had a greater spread of counties with melanoma rates. This goes on to show how for the states without beaches, there is consistent correlation between lower melanoma rates per income for white populations. 
 
-
-```{r, include=FALSE}
-model <- lm_basic(melanoma ~ 1 + white_alone + asian_alone + black_alone, data = melanoma_fl)
-reg_table(model, level = 0.95)
-```
-
-
+On another note, creating a model for melanoma rates for white populations in california, by creating a regression table on a 95% confidence level we get these results:
 ```{r}
-
-
-
+model_ca <- lm_basic(melanoma ~ 1 + white_alone + black_alone + asian_alone, data = california) 
+reg_table(model_ca, level = 0.95)
 ```
+The table shows us how even though the previous graphs showed a good correlation for melanoma incidents, data provided is not very accurate. This is also shown in the previous graph, where many counties were very far from the fitted line. As well, the range of values for the intercept include 0, so it is not statistically significant. The R-squared value is 0.3354, meaning that these assumptions are ~34% correct. 
 
+Now, creating another regression table for one of the states without beaches, we get these results: 
+```{r}
+model_tn <- lm_basic(melanoma ~ 1 + white_alone, data = tennessee)
+reg_table(model_tn, level = 0.95)
+```
+Once gain, our intercept is negative, and its range includes 0, making it statistically insignificant. As well, its R-squared value is close to 0 therefore the predicted model is not very accureate. However, in both cases,  the estimate for the slope for white populations was statistically significant. This says that white people do have a higher tendency for melanoma, and the data is very consistent across both types of states.
 
 ## Conclusion
-
-
+In conclusion, the graphs were able to predict how states with beaches have higher indicents of melanoma for white people than states that did not contained beaches. Furthermore, the spread for counties in the beached states was greated than in the states without beaches, hinting at inaccuracy of the data. Income had some correlation with melanoma incident rates. This tells us how people who have a higher income could have better skin-care products and routines to protect their skin. Futhermore, the states that did not contain a beach had a slope very close to 0 for the fitted line. This says that there might not be a strong correlation between melanoma and income for these types of states. 
 
 ## References
-
+The dataset.
 
 
